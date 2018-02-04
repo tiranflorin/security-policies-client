@@ -57,7 +57,7 @@ $(document).ready(function () {
     $(".crud-submit-edit").click(function (e) {
         e.preventDefault();
         var name = $("#edit-item").find("input[name='name']").val();
-        var implicit_action = $("#edit-item").find("textarea[name='implicit_action']").val();
+        var implicit_action = $("#edit-item").find("input:radio[name='implicit_action']:checked").val();
         var id = $("#edit-item").find(".edit-id").val();
         var data = {name: name, implicit_action: implicit_action};
 
@@ -84,7 +84,7 @@ $(document).ready(function () {
     $(".crud-submit-clone").click(function (e) {
         e.preventDefault();
         var name = $("#clone-item").find("input[name='name']").val();
-        var implicit_action = $("#clone-item").find("textarea[name='implicit_action']").val();
+        var implicit_action = $("#clone-item").find("input:radio[name='implicit_action']:checked").val();
         var cloneId = $("#clone-item").find(".clone-id").val();
         var data = {cloneId: cloneId, name: name, implicit_action: implicit_action};
 
@@ -112,10 +112,11 @@ $(document).ready(function () {
         var id = $(this).parent("td").data('id');
         var name = $(this).parent("td").prev("td").prev("td").text();
         var implicit_action = $(this).parent("td").prev("td").text();
+        var actions = ['move to quarantine', 'delete', 'ignore'];
+        var pos = $.inArray(implicit_action, actions);
         $("#edit-item").find("input[name='name']").val(name);
-        $("#edit-item").find("textarea[name='implicit_action']").val(implicit_action);
+        $("#edit-item").find("input:radio[name='implicit_action']:nth(" + pos + ")").attr('checked', true);
         $("#edit-item").find(".edit-id").val(id);
-
     });
 
     /* Populate Clone Form */
@@ -123,8 +124,10 @@ $(document).ready(function () {
         var id = $(this).parent("td").data('id');
         var name = $(this).parent("td").prev("td").prev("td").text();
         var implicit_action = $(this).parent("td").prev("td").text();
+        var actions = ['move to quarantine', 'delete', 'ignore'];
+        var pos = $.inArray(implicit_action, actions);
         $("#clone-item").find("input[name='name']").val(name);
-        $("#clone-item").find("textarea[name='implicit_action']").val(implicit_action);
+        $("#clone-item").find("input:radio[name='implicit_action']:nth(" + pos + ")").attr('checked', true);
         $("#clone-item").find(".clone-id").val(id);
 
     });
